@@ -229,6 +229,7 @@ class Body extends Component {
                             {/* Show tap home page  */}
                             <Tab/>
                             <TabContainer/>
+							<div>123456</div>
                         </div>	
                     </div>
                     {/*/Latest movies*/}
