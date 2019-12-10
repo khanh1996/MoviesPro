@@ -1021,7 +1021,7 @@ a.w3_play_icon2 span {
 	padding: 1.8em 1em;
 }
 
-p.fexi_header {
+div.fexi_header {
 	text-transform: uppercase;
 	font-size: 1.3em;
 	color: #02a388;
@@ -1029,21 +1029,21 @@ p.fexi_header {
 	padding-bottom: 1em;
 }
 
-p.fexi_header_para {
+div.fexi_header_para {
 	margin-top: .8em;
 	color: #9ea2a2;
 	line-height: 1.5em;
 	position: relative;
 }
 
-p.fexi_header_para label {
+div.fexi_header_para label {
 	position: absolute;
 	top: 0%;
 	left: 21%;
 	font-style: normal;
 }
 
-p.fexi_header_para span {
+div.fexi_header_para span {
 	color: #02a388;
 	font-size: 14px;
 	font-weight: bold;
@@ -1051,7 +1051,7 @@ p.fexi_header_para span {
 	width: 25%;
 }
 
-p.fexi_header_para a {
+div.fexi_header_para a {
 	color: #9ea2a2;
 }
 
@@ -1059,7 +1059,7 @@ p.fexi_header_para a {
 	height: 65px;
 }
 
-p.fexi_header_para1 a i {
+div.fexi_header_para1 a i {
 	color: #fff !important;
 }
 
@@ -2818,7 +2818,7 @@ ul.bottom-links-agile li a {
 		font-size: 1.8em;
 		text-align: left;
 	}
-	p.fexi_header_para {
+	div.fexi_header_para {
 		margin-top: .8em;
 		line-height: 1.5em;
 		font-size: 0.8em;
@@ -3070,7 +3070,7 @@ ul.bottom-links-agile li a {
 		padding-right: 0;
 		padding: 0;
 	}
-	p.fexi_header_para {
+	div.fexi_header_para {
 		margin-top: .8em;
 		line-height: 1.5em;
 		font-size: 1em;
@@ -3421,7 +3421,7 @@ ul.bottom-links-agile li a {
 	.baner-info {
 		padding-top: 4em;
 	}
-	p.fexi_header_para {
+	div.fexi_header_para {
 		margin-top: .8em;
 		line-height: 1.5em;
 		font-size: 0.9em;
@@ -3559,7 +3559,7 @@ ul.bottom-links-agile li a {
 		margin: 0.5em 0 0.5em 0;
 		width: 100%;
 	}
-	p.fexi_header_para span {
+	div.fexi_header_para span {
 		float: left;
 		width: 100%;
 	}
@@ -3676,7 +3676,7 @@ ul.bottom-links-agile li a {
 		margin: 1.5em 0 2em 0;
 		letter-spacing: 2px;
 	}
-	p.fexi_header_para span {
+	div.fexi_header_para span {
 		float: left;
 		width: 100%;
 	}

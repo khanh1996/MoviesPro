@@ -248,7 +248,7 @@ class TopMovies extends Component {
                     </div>
                     <div className="col-md-5 video_agile_player second-top">
                         
-                        {this.elememtItemDetail}
+                        {/* {this.elememtItemDetail} */}
                         
                     </div>
                     <div className="clearfix"> </div>

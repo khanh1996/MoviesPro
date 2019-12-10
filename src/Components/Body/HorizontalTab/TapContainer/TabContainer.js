@@ -7,9 +7,37 @@ class TabContainer extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            data : []
+            data : [],
+            taps : ['recent','popularity','topRating']
         };
     }
+    renderAllTap = ( () => {
+         const elementAllTap = this.state.taps.map( (tap,index) => {
+             console.log(tap);
+             return (
+                <div className="tab1">
+                    <div className="tab_movies_agileinfo">
+                        <div className="w3_agile_featured_movies">
+                            <div className="col-md-5 video_agile_player">
+                                {/* start Item Detail  */}
+                                {/* {this.elememtItemDetail} */}
+                                {/* end Item Detail  */}
+                            </div>
+                            <div className="col-md-7 wthree_agile-movies_list">
+                                {/* start item */}
+                                
+                                {/* {this.elementItem} */}
+                                {/* end item */}                                                                           
+                            </div>
+                            <div className="clearfix"> </div>
+                        </div>
+                        <div className="cleafix" />
+                    </div>	
+                </div>
+             )
+         });
+         return elementAllTap;
+    }); 
     componentDidMount(){
         const params = {
             'param1' : 'movie',
@@ -23,7 +51,8 @@ class TabContainer extends Component {
             this.setState({
                 data : data
             });
-        });
+        }).catch(error => console.log(error));
+        
     }
     shouldComponentUpdate(nextProps, nextState){
         //console.log(this.state.data);
@@ -52,6 +81,7 @@ class TabContainer extends Component {
                         id = {product.id} 
                         title = {product.title}
                         poster_path =  {configPath + product.poster_path}
+                        backdrop_path = { configPath + product.backdrop_path}
                         vote_average =  {product.vote_average}
                         release_date =  {product.release_date}
                         // href = {product.href}
@@ -63,7 +93,7 @@ class TabContainer extends Component {
     });
     listItemDetailPopularMovie = (()=>{
         const base_url = "http://image.tmdb.org/t/p/";
-        const backdrop_sizes = "w300";
+        const backdrop_sizes = "w500";
         const configPath = base_url + backdrop_sizes;
 
         const elementItem = this.state.data.map((product,index) => {
@@ -79,6 +109,7 @@ class TabContainer extends Component {
                             title = {product.title}
                             overview = {product.overview}
                             poster_path =  {configPath + product.poster_path}
+                            backdrop_path = {configPath + product.backdrop_path}
                             vote_average =  {product.vote_average}
                             release_date =  {product.release_date}
                             genre_ids = {product.genre_ids}
@@ -88,6 +119,7 @@ class TabContainer extends Component {
         });
         return elementItem;
     });
+
     _ContentProductList = [
         {
             id: "1",
@@ -305,6 +337,7 @@ class TabContainer extends Component {
         // display item home page
         return (
             <div className="resp-tabs-container">
+                {this.renderAllTap()}
                 <div className="tab1">
                     <div className="tab_movies_agileinfo">
                         <div className="w3_agile_featured_movies">

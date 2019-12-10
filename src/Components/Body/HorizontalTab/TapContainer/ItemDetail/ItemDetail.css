@@ -1,0 +1,8 @@
+.video_agile_player .video-grid-single-page-agileits img{
+    max-height: 608px;
+}
+.fix-text-3-line{
+    height: 60px;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
