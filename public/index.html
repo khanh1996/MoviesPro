@@ -80,6 +80,7 @@
           $( document ).ready(function() {
             $("#demo-1").zoomSlider();
             
+            
           });
         </script>
       <!-- search-jQuery -->
@@ -158,20 +159,21 @@
     <link href="%PUBLIC_URL%/assets/css/owl.carousel.css" rel="stylesheet" type="text/css" media="all">
     <script src="%PUBLIC_URL%/assets/js/owl.carousel.js"></script>
     <script>
-    $(document).ready(function() { 
-      $("#owl-demo").owlCarousel({
-    
-      autoPlay: 3000, //Set AutoPlay to 3 seconds
-        autoPlay : true,
-        navigation :true,
+      function initSlider(){
+        $(document).ready(function() { 
+        $("#owl-demo").owlCarousel({
+        autoPlay: 3000, //Set AutoPlay to 3 seconds
+          autoPlay : true,
+          navigation :true,
 
-        items : 5,
-        itemsDesktop : [640,4],
-        itemsDesktopSmall : [414,3]
+          items : 5,
+          itemsDesktop : [640,4],
+          itemsDesktopSmall : [414,3]
+      
+        });
+      }); 
+      }
     
-      });
-    
-    }); 
     </script> 
 
     <!--/script-->

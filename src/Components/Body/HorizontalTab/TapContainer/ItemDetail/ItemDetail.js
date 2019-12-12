@@ -49,7 +49,7 @@ class ItemDetail extends Component {
         return elementGenres;
     }
     render() {
-        console.log('render:::');
+        //console.log('render:::');
         const {id,title,poster_path,backdrop_path,vote_average,release_date,overview } = this.props;
         //console.log(overview);
         //console.log(genre_ids);

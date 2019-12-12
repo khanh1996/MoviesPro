@@ -5,22 +5,23 @@ class ItemLatestMovies extends Component {
  
 
     render() {
-        var { image, year, name } = this.props;
+        var { original_title, poster_path, backdrop_path, vote_average, release_date, href } = this.props;
+        //console.log(this.props);
         
         return (
             <div className="item">
                 <div className="w3l-movie-gride-agile w3l-movie-gride-slider ">
-                    <a href="single.html" className="hvr-sweep-to-bottom"><img src={image} title="Movies Pro" className="img-responsive" alt=" " />
+                    <a href="single.html" className="hvr-sweep-to-bottom"><img src={poster_path} title={original_title} className="img-responsive" alt={original_title} />
                         <div className="w3l-action-icon"><i className="fa fa-play-circle-o" aria-hidden="true" /></div>
                     </a>
                     <div className="mid-1 agileits_w3layouts_mid_1_home">
                         <div className="w3l-movie-text">
-                            <h6><a href="single.html">{name}</a></h6>							
+                            <h6><a href="single.html">{original_title}</a></h6>							
                         </div>
                         <div className="mid-2 agile_mid_2_home">
-                            <p>{year}</p>
+                            <p>{release_date}</p>
                             <div className="block-stars">
-                                <Ratting ratting={this.props.ratting} />
+                                <Ratting vote_average={vote_average} />
                             </div>
                             <div className="clearfix" />
                         </div>

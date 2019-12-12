@@ -11,22 +11,26 @@ class TabContainer extends Component {
             taps : ['recent','popularity','topRating']
         };
     }
+    componentDidMount(){
+        this.getMovieList();
+    }
     renderAllTap = ( () => {
          const elementAllTap = this.state.taps.map( (tap,index) => {
-             console.log(tap);
-             return (
-                <div className="tab1">
+            //console.log(tap);
+            let classIndexKey = "tab" + (index+1);
+            return (
+                <div className={classIndexKey} id={tap} key={index}>
                     <div className="tab_movies_agileinfo">
                         <div className="w3_agile_featured_movies">
                             <div className="col-md-5 video_agile_player">
                                 {/* start Item Detail  */}
-                                {/* {this.elememtItemDetail} */}
+                                {this.listItemDetailPopularMovie()}
                                 {/* end Item Detail  */}
                             </div>
                             <div className="col-md-7 wthree_agile-movies_list">
                                 {/* start item */}
                                 
-                                {/* {this.elementItem} */}
+                                {this.listItemPopularMovie()}
                                 {/* end item */}                                                                           
                             </div>
                             <div className="clearfix"> </div>
@@ -34,11 +38,12 @@ class TabContainer extends Component {
                         <div className="cleafix" />
                     </div>	
                 </div>
-             )
+            )
          });
          return elementAllTap;
     }); 
-    componentDidMount(){
+    
+    getMovieList = () =>{
         const params = {
             'param1' : 'movie',
             'param2' : 'popular'
@@ -51,7 +56,13 @@ class TabContainer extends Component {
             this.setState({
                 data : data
             });
-        }).catch(error => console.log(error));
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+        .finally(()=>{
+            
+        });
         
     }
     shouldComponentUpdate(nextProps, nextState){
