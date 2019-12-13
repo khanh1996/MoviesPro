@@ -89,7 +89,7 @@ class LastMovies extends Component {
         combinePromise.then( (values)=>{
             const getListLastMovies = values[0].data;
             const getConfigurationImage = values[1].data;
-            console.log(getConfigurationImage);
+            //console.log(getConfigurationImage);
             let listLastMovies = getListLastMovies.results.map((product,index) =>{
                
                 return {
