@@ -11,21 +11,8 @@ class LastMovies extends Component {
                 images: {
                     "base_url": "",
                     "secure_base_url": "",
-                    "backdrop_sizes": [
-                        "w300",
-                        "w780",
-                        "w1280",
-                        "original"
-                    ],
-                    "poster_sizes": [
-                        "w92",
-                        "w154",
-                        "w185",
-                        "w342",
-                        "w500",
-                        "w780",
-                        "original"
-                    ]
+                    "backdrop_sizes": [],
+                    "poster_sizes": []
                 }
             }
         }
@@ -42,20 +29,6 @@ class LastMovies extends Component {
             'param2' : 'now_playing'
         }
         const dataLastMovies = dataApi(params);
-        //console.log(dataRecentMovies);
-        // dataLastMovies.then((response)=>{
-        //     const data = response.data.results;
-        //     //console.log(data);
-        //     this.setState({
-        //         data : data
-        //     });
-        // })
-        // .catch((error) => {
-        //     console.log(error);
-        // })
-        // .finally(()=>{
-            
-        // });
         return dataLastMovies;
     }
     __getConfigurationImage = () => {
@@ -63,57 +36,44 @@ class LastMovies extends Component {
             'param1' : 'configuration'
         }
         const getConfig = getConfiguration(params);
-        // getConfig.then((response)=>{
-        //     const data = response.data.images;
-        //     //console.log(data);
-        //     this.setState({
-        //         configuration : {
-        //             images : data
-        //         }
-        //     })
-        // })
-        // .catch((error) => {
-        //     console.log(error);
-        // })
-        // .finally(() => {
-
-        // });
         return getConfig;
     }
     __promisAll = () => {
         console.log('__promisAll');
         const getListLastMovies = this.__getListLastMovies();
         const getConfigurationImage = this.__getConfigurationImage();
-        //console.log(getConfigurationImage);
         const combinePromise = Promise.all([getListLastMovies, getConfigurationImage]);
         combinePromise.then( (values)=>{
             const getListLastMovies = values[0].data;
             const getConfigurationImage = values[1].data;
+<<<<<<< HEAD
             //console.log(getConfigurationImage);
+=======
+            const base_url = getConfigurationImage.images.base_url;
+            const poster_sizes = getConfigurationImage.images.poster_sizes[4];
+            let pathImagePoster = '';
+            let pathImageBackdrop = '';
+            //console.log(getListLastMovies);
+>>>>>>> aa19191d735ae05df2ef03aea094317ab2236463
             let listLastMovies = getListLastMovies.results.map((product,index) =>{
-               
+                pathImagePoster = base_url + poster_sizes + product.poster_path;
+                pathImageBackdrop = base_url + poster_sizes + product.backdrop_path;
+                //console.log(pathImage);
                 return {
-                    _id: `${product.id}`,
-                    _name: `${product.original_title}`,
-                    _desc: `${product.overview}`,
+                    id: `${product.id}`,
+                    original_title: `${product.original_title}`,
+                    overview: `${product.overview}`,
+                    poster_path: `${pathImagePoster}`,
+                    backdrop_path:`${pathImageBackdrop}`,
+                    release_date: `${product.release_date}`,
+                    vote_average: `${product.vote_average}`
                 };
             });
-            // let configurationImage = getConfigurationImage.images.map((image,index) =>{
-            //     console.log(image)
-            //     return {
-            //         _id: `${product.id}`,
-            //         _name: `${product.original_title}`,
-            //         _desc: `${product.overview}`,
-            //     };
-            // });
-            // //console.log(listLastMovies);
-            // this.setState({
-            //     data: listLastMovies,
-            //     configuration : {
-            //         image : configurationImage
-            //     }
-
-            // });
+            //console.log(listLastMovies);
+            this.setState({
+                data : listLastMovies
+            });
+           
         });
     }
     componentDidUpdate(){
@@ -138,19 +98,19 @@ class LastMovies extends Component {
 
     __listItemLastMovie = ( () =>{
         console.log('listItemLastMovie::');
-        const base_url = "http://image.tmdb.org/t/p/";
-        const backdrop_sizes = "w300";
-        const configPath = base_url + backdrop_sizes;
+        // const base_url = "http://image.tmdb.org/t/p/";
+        // const backdrop_sizes = "w300";
+        // const configPath = base_url + backdrop_sizes;
         const elementItemLatestMovies = this.state.data.map((product,index) => {
+            //console.log(product);
             return (
                 <ItemLatestMovies
                     key = {index} 
                     original_title = {product.original_title}
-                    poster_path =  {configPath + product.poster_path}
-                    backdrop_path = {configPath + product.backdrop_path}
+                    poster_path =  {product.poster_path}
+                    backdrop_path = {product.backdrop_path}
                     vote_average =  {product.vote_average}
                     release_date =  {product.release_date}
-                    href = {product.href}
                 />
             )
         });
@@ -162,6 +122,7 @@ class LastMovies extends Component {
     render() {
         
         console.log('render:::');
+        console.log(this.state.data);
         return (
             <div className="w3_agile_latest_movies">
                 <div id="owl-demo" className="owl-carousel owl-theme">
