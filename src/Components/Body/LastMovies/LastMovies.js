@@ -18,12 +18,12 @@ class LastMovies extends Component {
         }
     }
     componentDidMount(){
-        console.log('componentDidMount::');
+        //console.log('componentDidMount::');
         this.__promisAll();
         
     }
     __getListLastMovies = () => {
-        console.log('getListLastMovies::');
+        //console.log('getListLastMovies::');
         const params = {
             'param1' : 'movie',
             'param2' : 'now_playing'
@@ -39,22 +39,18 @@ class LastMovies extends Component {
         return getConfig;
     }
     __promisAll = () => {
-        console.log('__promisAll');
+        //console.log('__promisAll');
         const getListLastMovies = this.__getListLastMovies();
         const getConfigurationImage = this.__getConfigurationImage();
         const combinePromise = Promise.all([getListLastMovies, getConfigurationImage]);
         combinePromise.then( (values)=>{
             const getListLastMovies = values[0].data;
             const getConfigurationImage = values[1].data;
-<<<<<<< HEAD
-            //console.log(getConfigurationImage);
-=======
             const base_url = getConfigurationImage.images.base_url;
             const poster_sizes = getConfigurationImage.images.poster_sizes[4];
             let pathImagePoster = '';
             let pathImageBackdrop = '';
             //console.log(getListLastMovies);
->>>>>>> aa19191d735ae05df2ef03aea094317ab2236463
             let listLastMovies = getListLastMovies.results.map((product,index) =>{
                 pathImagePoster = base_url + poster_sizes + product.poster_path;
                 pathImageBackdrop = base_url + poster_sizes + product.backdrop_path;
@@ -77,12 +73,12 @@ class LastMovies extends Component {
         });
     }
     componentDidUpdate(){
-        console.log('componentDidUpdate::');
+        //console.log('componentDidUpdate::');
         window.initSlider();
     }
     shouldComponentUpdate(nextProps, nextState){
         
-        console.log('shouldComponentUpdate::');
+        //console.log('shouldComponentUpdate::');
         //console.log(this.state.data);
         
         const oldData = this.state.data;
@@ -90,6 +86,7 @@ class LastMovies extends Component {
         if(oldData !== newData){
             //console.log('1');
             return true;
+            
         }else{
             //console.log('2');
             return false;
@@ -97,7 +94,7 @@ class LastMovies extends Component {
     }
 
     __listItemLastMovie = ( () =>{
-        console.log('listItemLastMovie::');
+        //console.log('listItemLastMovie::');
         // const base_url = "http://image.tmdb.org/t/p/";
         // const backdrop_sizes = "w300";
         // const configPath = base_url + backdrop_sizes;
@@ -120,9 +117,8 @@ class LastMovies extends Component {
     
 
     render() {
-        
-        console.log('render:::');
-        console.log(this.state.data);
+        //console.log('render:::');
+        //console.log(this.state.data);
         return (
             <div className="w3_agile_latest_movies">
                 <div id="owl-demo" className="owl-carousel owl-theme">
