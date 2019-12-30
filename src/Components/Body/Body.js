@@ -237,7 +237,7 @@ class Body extends Component {
                         <LastMovies/>
 
                     {/*/requested-movies*/}
-                    <h3 className="agile_w3_title">Requested <span>Movies</span> </h3>
+                    <h3 className="agile_w3_title">Upcoming <span>Movies</span> </h3>
                         
                         <RequestedMovies/>
                         

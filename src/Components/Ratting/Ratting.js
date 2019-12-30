@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Ratting extends Component {
     renderRatting = () => {
         const vote_average = this.props.vote_average/2;
-        console.log(vote_average);
+        //console.log(vote_average);
         var arr = [];
         for(let i = 1 ; i <= 5; i++){
             if(i <= vote_average){
@@ -19,6 +19,7 @@ class Ratting extends Component {
         }
         //console.log(arr);
         return arr ;
+        
     }
     showRatting = (ratting) => {
         //console.log(ratting); 

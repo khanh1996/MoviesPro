@@ -26,14 +26,20 @@ class LastMovies extends Component {
     __getListLastMovies = () => {
         //console.log('getListLastMovies::');
         const params = {
-            'param1' : 'movie',
-            'param2' : 'now_playing'
+            'param1'  : 'discover',
+            'param2'  : 'movie',
+            'language': 'en-US',
+            'sort_by' : 'release_date.desc',
+            'include_adult' : false,
+            'include_video' : false,
+            'page' : 1,
+            'year' : 2019
         }
         const dataLastMovies = dataApi(params);
         return dataLastMovies;
     }
     __getConfigurationImage = () => {
-        console.log('getConfigurationImage::');
+        //console.log('getConfigurationImage::');
         const params = {
             'param1' : 'configuration'
         }
@@ -113,14 +119,9 @@ class LastMovies extends Component {
                 />
             )
         });
-        console.log(elementItemLatestMovies);
+        //console.log(elementItemLatestMovies);
         return elementItemLatestMovies;
     });
-    ___aaFunction = () => {
-        console.log('___aaFunction');
-    }
-    
-
     render() {
         //console.log('render:::');
         //console.log(this.state.data);
