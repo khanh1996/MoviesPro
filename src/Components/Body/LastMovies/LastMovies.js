@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import ItemLatestMovies from './ItemLatestMovies/ItemLatestMovies';
-import {dataApi} from '../../Services';
+
 import {getConfiguration} from '../../Services'
+import {dataApi} from '../../Services';
 class LastMovies extends Component {
     constructor(props, context) {
         super(props, context);
@@ -19,7 +20,7 @@ class LastMovies extends Component {
     }
     componentDidMount(){
         console.log('componentDidMount::');
-        this.__promisAll();
+        this.__promiseAll();
         
     }
     __getListLastMovies = () => {
@@ -32,29 +33,26 @@ class LastMovies extends Component {
         return dataLastMovies;
     }
     __getConfigurationImage = () => {
+        console.log('getConfigurationImage::');
         const params = {
             'param1' : 'configuration'
         }
         const getConfig = getConfiguration(params);
         return getConfig;
     }
-    __promisAll = () => {
-        console.log('__promisAll');
+    __promiseAll = () => {
+        console.log('__promiseAll');
         const getListLastMovies = this.__getListLastMovies();
         const getConfigurationImage = this.__getConfigurationImage();
         const combinePromise = Promise.all([getListLastMovies, getConfigurationImage]);
         combinePromise.then( (values)=>{
             const getListLastMovies = values[0].data;
             const getConfigurationImage = values[1].data;
-<<<<<<< HEAD
-            //console.log(getConfigurationImage);
-=======
             const base_url = getConfigurationImage.images.base_url;
             const poster_sizes = getConfigurationImage.images.poster_sizes[4];
             let pathImagePoster = '';
             let pathImageBackdrop = '';
             //console.log(getListLastMovies);
->>>>>>> aa19191d735ae05df2ef03aea094317ab2236463
             let listLastMovies = getListLastMovies.results.map((product,index) =>{
                 pathImagePoster = base_url + poster_sizes + product.poster_path;
                 pathImageBackdrop = base_url + poster_sizes + product.backdrop_path;
@@ -105,7 +103,7 @@ class LastMovies extends Component {
             //console.log(product);
             return (
                 <ItemLatestMovies
-                    key = {index} 
+                    key = {index}
                     original_title = {product.original_title}
                     poster_path =  {product.poster_path}
                     backdrop_path = {product.backdrop_path}
@@ -114,9 +112,12 @@ class LastMovies extends Component {
                 />
             )
         });
-        //console.log(elementItemLatestMovies);
+        console.log(elementItemLatestMovies);
         return elementItemLatestMovies;
     });
+    ___aaFunction = () => {
+        console.log('___aaFunction');
+    }
     
 
     render() {
@@ -128,6 +129,7 @@ class LastMovies extends Component {
                 <div id="owl-demo" className="owl-carousel owl-theme">
                     {/* start Item Latest Movies */}
                     {this.__listItemLastMovie()}
+                    
                     {/* end Item Latest Movies */}
                 </div>
                 

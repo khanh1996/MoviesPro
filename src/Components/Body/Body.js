@@ -227,8 +227,8 @@ class Body extends Component {
                     {/*/tab-section*/}
                         <div id="horizontalTab">
                             {/* Show tap home page  */}
-                            <Tab/>
-                            <TabContainer/>
+                            {/* <Tab/>
+                            <TabContainer/> */}
                         </div>	
                     </div>
                     {/*/Latest movies*/}
