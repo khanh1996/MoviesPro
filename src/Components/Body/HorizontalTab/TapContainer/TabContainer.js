@@ -3,20 +3,32 @@ import Item from './Item/Item'
 import ItemDetail from './ItemDetail/ItemDetail';
 
 import {dataApi} from '../../../Services';
+import {getConfiguration} from '../../../Services';
 class TabContainer extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
             data : [],
-            taps : ['recent','popularity','topRating']
+            taps : ['recent','popularity','topRating'],
+            configuration: {
+                images: {
+                    "base_url": "",
+                    "secure_base_url": "",
+                    "backdrop_sizes": [],
+                    "poster_sizes": []
+                }
+            }
         };
+        
     }
     componentDidMount(){
-        this.getMovieList();
+        //this.getMovieList();
+        this.__promisAll();
     }
     renderAllTap = ( () => {
+        console.log(this.state.taps);
          const elementAllTap = this.state.taps.map( (tap,index) => {
-            //console.log(tap);
+            console.log(tap);
             let classIndexKey = "tab" + (index+1);
             return (
                 <div className={classIndexKey} id={tap} key={index}>
@@ -42,40 +54,102 @@ class TabContainer extends Component {
          });
          return elementAllTap;
     }); 
-    
-    getMovieList = () =>{
+    __promisAll = () =>{
+        const dataPopularMovies = this.getPopularMovie();
+        const getConfigurationImage = this.__getConfigurationImage();
+        
+        
+        const combinePromise = Promise.all([dataPopularMovies,getConfigurationImage]);
+        combinePromise.then((values)=>{
+            const getPopularTopMovies = values[0].data;
+            const getConfigurationImage = values[1].data;
+            const base_url = getConfigurationImage.images.base_url;
+            const poster_sizes = getConfigurationImage.images.poster_sizes[4];
+            let pathImagePoster = '';
+            let pathImageBackdrop = '';
+            let listPopularMovies =  getPopularTopMovies.results.map( (product,index) => {
+                pathImagePoster = base_url + poster_sizes + product.poster_path;
+                pathImageBackdrop = base_url + poster_sizes + product.backdrop_path;
+                return {
+                    id : `${product.id}`,
+                    original_title: `${product.original_title}`,
+                    overview: `${product.overview}`,
+                    poster_path: `${pathImagePoster}`,
+                    backdrop_path:`${pathImageBackdrop}`,
+                    release_date: `${product.release_date}`,
+                    vote_average: `${product.vote_average}`,
+                    genre_ids: `${product.genre_ids}`
+                }
+            });
+            //console.log(listPopularMovies);
+            this.setState({
+                data : listPopularMovies
+            });
+            
+        });
+    }
+    getPopularMovie = () =>{
         const params = {
             'param1' : 'movie',
             'param2' : 'popular'
         }
         const dataPopularMovies = dataApi(params);
         //console.log(dataRecentMovies);
-        dataPopularMovies.then((response)=>{
-            const data = response.data.results;
-            //console.log(data);
-            this.setState({
-                data : data
-            });
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-        .finally(()=>{
-            
-        });
+        return dataPopularMovies;
         
     }
+    __getConfigurationImage = () => {
+        //console.log('getConfigurationImage::');
+        const params = {
+            'param1' : 'configuration'
+        }
+        const getConfig = getConfiguration(params);
+        return getConfig;
+    }
     shouldComponentUpdate(nextProps, nextState){
+        
+        //console.log('shouldComponentUpdate::');
         //console.log(this.state.data);
+        
         const oldData = this.state.data;
         const newData = nextState;
         if(oldData !== newData){
             //console.log('1');
             return true;
+            
         }else{
+            //console.log('2');
             return false;
         }
     }
+    __itemDetailPopularMovie = (() =>{
+        //console.log('listItemLastMovie::');
+        // const base_url = "http://image.tmdb.org/t/p/";
+        // const backdrop_sizes = "w300";
+        // const configPath = base_url + backdrop_sizes;
+        const elementItemDetailPopularMovies = this.state.data.map((product,index) => {
+            //console.log(product);
+
+            if(index === 0 ){
+                return (
+                    <ItemDetail 
+                        key = {index}
+                        id = {product.id} 
+                        original_title = {product.original_title}
+                        poster_path =  {product.poster_path}
+                        backdrop_path = {product.backdrop_path}
+                        vote_average =  {product.vote_average}
+                        release_date =  {product.release_date}
+                        genre_ids = {product.genre_ids}
+                        overview = {product.overview}
+                        // href = {product.href}
+                    />
+                )
+            }
+        });
+        //console.log(elementItemTopMovies);
+        return elementItemDetailPopularMovies;
+    });
     listItemPopularMovie = ( () => {
         const base_url = "http://image.tmdb.org/t/p/";
         const backdrop_sizes = "w300";
@@ -348,13 +422,18 @@ class TabContainer extends Component {
         // display item home page
         return (
             <div className="resp-tabs-container">
-                {this.renderAllTap()}
+                {/* {this.renderAllTap()} */}
+                {/*
+                ádasdasd
+                ádasdsa
+                */} 
                 <div className="tab1">
                     <div className="tab_movies_agileinfo">
                         <div className="w3_agile_featured_movies">
                             <div className="col-md-5 video_agile_player">
                                 {/* start Item Detail  */}
                                 {/* {this.elememtItemDetail} */}
+                                { this.__itemDetailPopularMovie() }
                                 {/* end Item Detail  */}
                             </div>
                             <div className="col-md-7 wthree_agile-movies_list">
@@ -368,17 +447,18 @@ class TabContainer extends Component {
                         <div className="cleafix" />
                     </div>	
                 </div>
+                
                 <div className="tab2">
                     <div className="tab_movies_agileinfo">
                         <div className="w3_agile_featured_movies">
                             <div className="col-md-5 video_agile_player">
                                 {/* start Item Detail  */}
-                                {this.listItemDetailPopularMovie()}
+                                {/* {this.listItemDetailPopularMovie()} */}
                                 {/* end Item Detail  */}
                             </div>
                             <div className="col-md-7 wthree_agile-movies_list">
                                 {/* start item */}
-                                {this.listItemPopularMovie()}
+                                {/* {this.listItemPopularMovie()} */}
                                 {/* end item */}
                             </div>
                             <div className="clearfix"> </div>
@@ -445,6 +525,7 @@ class TabContainer extends Component {
                     <div className="cleafix" />
                     </div>	
                 </div>
+                
             </div>
         );
     }

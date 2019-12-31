@@ -227,19 +227,19 @@ class Body extends Component {
                     {/*/tab-section*/}
                         <div id="horizontalTab">
                             {/* Show tap home page  */}
-                            {/* <Tab/>
-                            <TabContainer/> */}
+                            <Tab/>
+                            <TabContainer/>
                         </div>	
                     </div>
                     {/*/Latest movies*/}
                     <h3 className="agile_w3_title"> Latest <span>Movies</span></h3>
                         
-                        <LastMovies/>
+                        {/* <LastMovies/> */}
 
                     {/*/requested-movies*/}
                     <h3 className="agile_w3_title">Upcoming <span>Movies</span> </h3>
                         
-                        <RequestedMovies/>
+                        {/* <RequestedMovies/> */}
                         
                     {/*/top-movies*/}
                     <h3 className="agile_w3_title">Top<span>Movies</span> </h3>

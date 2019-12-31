@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {dataApi} from '../../../../Services';
 import './ItemDetail.css';
 import Ratting from '../../../../Ratting/Ratting';
+import {genreDataApi} from '../../../../Services';
 class ItemDetail extends Component {
     constructor(props, context) {
         super(props, context);
@@ -14,14 +15,18 @@ class ItemDetail extends Component {
         // data truyền sang
         const genre_ids = this.props.genre_ids;
         const params = {
-            'param1' : 'genre/movie',
-            'param2' : 'list'
+            'param1'  : 'genre',
+            'param2'  : 'movie',
+            'param3'  : 'list',
+            'language': 'en-US',
         }
-        const dataPopularMovies = dataApi(params);
+        const dataPopularMovies = genreDataApi(params);
+        console.log('dataPopularMovies:::');
+        //console.log(dataPopularMovies);
         dataPopularMovies.then( (response) => {
             // data danh sách thể loại lấy từ api
             const dataGenres = response.data.genres;
-            //console.log(dataGenres);
+            console.log(dataGenres);
             //console.log(genre_ids);
             var genres = [];
             for (const elementGenre of genre_ids) {
@@ -31,47 +36,104 @@ class ItemDetail extends Component {
                    }
                 }
             }
-            //console.log(genres);
+            // console.log(genres);
             this.setState({
                 genres : genres
             });
         }).catch(error => console.log(error));
     }
-    renderGenres = () => {
-        const elementGenres =  this.state.genres.map((genre,index)=>{
-            // lấy ra phần tử cuối cùng
-            const lastItem = this.state.genres[this.state.genres.length-1];
+    // componentDidMount(){
+    //     this.__promisAll();
+    // }
+    // __getListGenres = () => {
+    //     const params = {
+    //         'param1'  : 'genre',
+    //         'param2'  : 'movie',
+    //         'param3'  : 'list',
+    //         'language': 'en-US',
+    //     }
+    //     const dataGenres = genreDataApi(params);
+    //     return dataGenres;
+    // }
+    // __promisAll = () => {
+    //     const getListGenre= this.__getListGenres();
+    //     const combinePromise = Promise.all([getListGenre]);
+    //     combinePromise.then((values)=>{
+    //         const getListGenre = values[0].data;
+    //         //console.log(getListGenre.genres);
+    //         console.log(this.props.genre_ids);
+    //         var arrGenreShow = [];
+    //         let listGenres = getListGenre.genres.map((genres,index) => {
+    //             if(this.props.genre_ids){
+    //                 const arrGenre =  this.props.genre_ids.split(",");
+    //                 for (const elementGenre of arrGenre) {
+    //                     if(parseInt(elementGenre) === genres.id){
+    //                         arrGenreShow.push(genres.name);
+    //                     }
+    //                 }
+    //             }
+    //         });
+    //         console.log(arrGenreShow);
+    //         this.setState({
+    //             genres : arrGenreShow
+    //         });
+    //     });
+    // }
+    shouldComponentUpdate(nextProps, nextState){
+        
+        //console.log('shouldComponentUpdate::');
+        //console.log(this.state.data);
+        
+        const oldData = this.state.genres;
+        const newData = nextState;
+        if(oldData !== newData){
+            //console.log('1');
+            return true;
             
-            return (
-                <a key={index} href="genre.html">{genre}{ lastItem === genre ? '' : ' | '}</a>
-            )
-        });
-        return elementGenres;
+        }else{
+            //console.log('2');
+            return false;
+        }
     }
+    renderGenres = () => {
+        
+
+            // for (const elementGenre of genresApi) {
+            //     for (const element of dataGenres) {
+            //        if (elementGenre === element.id){
+            //             genres.push(element.name);
+            //        }
+            //     }
+            // }
+        // const elementGenres =  this.state.genres.map((genre,index) => {
+        //     // lấy ra phần tử cuối cùng
+        //     const lastItem = this.state.genres[this.state.genres.length-1];
+            
+        //     return (
+        //         <a key={index} href="genre.html">{genre}{ lastItem === genre ? '' : ' | '}</a>
+        //     )
+        // });
+    }
+    
+    // renderGenres = () => {
+    //     console.log('genre_id:::::::::::');
+    //     console.log(this.props.genre_ids);
+    //     const elementGenres =  this.state.genres.map((genre,index)=>{
+    //         // lấy ra phần tử cuối cùng
+    //         const lastItem = this.state.genres[this.state.genres.length-1];
+            
+    //         return (
+    //             <a key={index} href="genre.html">{genre}{ lastItem === genre ? '' : ' | '}</a>
+    //         )
+    //     });
+    //     return elementGenres;
+    // }
     render() {
         //console.log('render:::');
         const {id,title,poster_path,backdrop_path,vote_average,release_date,overview } = this.props;
         //console.log(overview);
         //console.log(genre_ids);
         // this.listGenres(genre_ids);
-        function showRatting(ratting) {
-            //console.log(ratting);
-            var arr = [];
-            for(let i = 1 ; i <= 5; i++){
-                if(i <= ratting){
-                    arr.push(<a key={i} href="index.html"><i className="fa fa-star" aria-hidden="true" /> </a>)   
-                }
-                else{
-                    if( i-0.5 === ratting){
-                        arr.push(<a key={i} href="index.html"><i className="fa fa-star-half-o" aria-hidden="true" /> </a>)   
-                    }else{
-                        arr.push(<a key={i} href="index.html"><i className="fa fa-star-o" aria-hidden="true" /> </a>)   
-                    }
-                }
-            }
-            //console.log(arr);
-            return arr ;
-        }
 
         function showCategory(category) {
             let string = category;
@@ -102,7 +164,8 @@ class ItemDetail extends Component {
 					<div className="fexi_header_para"><span>Release On<label>:</label></span>{release_date} </div>
                     <div className="fexi_header_para">
                         <span>Genres<label>:</label></span>
-                        {this.renderGenres()}							
+                        {/* {this.renderGenres()}							 */}
+                        {this.renderGenres()}
                     </div>
                     
                     <div className="fexi_header_para fexi_header_para1"><span>Star Rating<label>:</label></span>

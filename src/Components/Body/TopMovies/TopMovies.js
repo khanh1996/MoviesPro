@@ -67,6 +67,7 @@ class TopMovies extends Component {
                     vote_average: `${product.vote_average}`
                 }
             });
+            
             this.setState({
                 data : listTopMovies
             });
@@ -134,7 +135,7 @@ class TopMovies extends Component {
                 )
             }
         });
-        console.log(itemDetailTopMovie);
+        //console.log(itemDetailTopMovie);
         return itemDetailTopMovie;
     })
     

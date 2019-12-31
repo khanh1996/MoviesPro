@@ -2,6 +2,19 @@ import React, { Component } from 'react';
 import Logo from './Logo';
 
 class Nav extends Component {
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            genre : []
+        }
+    }
+    componentDidMount(){
+
+    }
+    
+    __listGenre = () =>{
+        console.log()
+    }
     render() {
         return (
             <nav className="navbar navbar-default">
