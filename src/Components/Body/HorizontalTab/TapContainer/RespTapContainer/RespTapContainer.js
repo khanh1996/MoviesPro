@@ -1,7 +1,90 @@
 import React, { Component } from 'react';
-
+import {dataApi} from '../../../../Services';
+import {getConfiguration} from '../../../../Services'
 class RespTapContainer extends Component {
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+          data : []
+        }
+    }
+    
+    renderALLTap = (() => {
+        console.log(this.props.tab);
+    });
+    componentDidMount(){
+        this.__promisAll();
+    }
+    shouldComponentUpdate(nextProps, nextState){
+        
+        //console.log('shouldComponentUpdate::');
+        //console.log(this.state.data);
+        
+        const oldData = this.state.data;
+        const newData = nextState;
+        if(oldData !== newData){
+            //console.log('1');
+            return true;
+            
+        }else{
+            //console.log('2');
+            return false;
+        }
+    }
+    __getListTopMovies = () => {
+        const params = {
+            'param1'  : 'discover',
+            'param2'  : 'movie',
+            'language': 'en-US',
+            'sort_by' : 'vote_count.desc',
+            'include_adult' : true,
+            'include_video' : true
+        }
+        const dataTopMovies = dataApi(params);
+        //console.log(dataTopMovies);
+        return dataTopMovies;
+    }
+    __getConfigurationImage = () => {
+        //console.log('getConfigurationImage::');
+        const params = {
+            'param1' : 'configuration'
+        }
+        const getConfig = getConfiguration(params);
+        return getConfig;
+    }
+    __promisAll = () => {
+        const getListTopMovies = this.__getListTopMovies();
+        const getConfigurationImage = this.__getConfigurationImage();
+        const combinePromise = Promise.all([getListTopMovies,getConfigurationImage]);
+        combinePromise.then((values)=>{
+            const getListTopMovies = values[0].data;
+            const getConfigurationImage = values[1].data;
+            const base_url = getConfigurationImage.images.base_url;
+            const poster_sizes = getConfigurationImage.images.poster_sizes[4];
+            let pathImagePoster = '';
+            let pathImageBackdrop = '';
+            let listTopMovies =  getListTopMovies.results.map( (product,index) => {
+                pathImagePoster = base_url + poster_sizes + product.poster_path;
+                pathImageBackdrop = base_url + poster_sizes + product.backdrop_path;
+                return {
+                    id : `${product.id}`,
+                    original_title: `${product.original_title}`,
+                    overview: `${product.overview}`,
+                    poster_path: `${pathImagePoster}`,
+                    backdrop_path:`${pathImageBackdrop}`,
+                    release_date: `${product.release_date}`,
+                    vote_average: `${product.vote_average}`
+                }
+            });
+            
+            this.setState({
+                data : listTopMovies
+            });
+        });
+    } 
+    
     render() {
+        this.renderALLTap();
         return (
             <div className="tab3">
                 <div className="tab_movies_agileinfo">

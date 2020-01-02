@@ -20,12 +20,12 @@ class ItemDetail extends Component {
             'language': 'en-US',
         }
         const dataPopularMovies = genreDataApi(params);
-        console.log('dataPopularMovies:::');
+        //console.log('dataPopularMovies:::');
         //console.log(dataPopularMovies);
         dataPopularMovies.then( (response) => {
             // data danh sách thể loại lấy từ api
             const dataGenres = response.data.genres;
-            console.log(dataGenres);
+            //console.log(dataGenres);
             //console.log(genre_ids);
             var genres = [];
             for (const elementGenre of genre_ids) {

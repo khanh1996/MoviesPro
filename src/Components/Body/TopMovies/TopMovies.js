@@ -74,10 +74,8 @@ class TopMovies extends Component {
         });
     } 
     shouldComponentUpdate(nextProps, nextState){
-        
         //console.log('shouldComponentUpdate::');
         //console.log(this.state.data);
-        
         const oldData = this.state.data;
         const newData = nextState;
         if(oldData !== newData){
