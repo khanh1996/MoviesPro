@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {dataApi} from '../../../../Services';
 import './ItemDetail.css';
 import Ratting from '../../../../Ratting/Ratting';
 import {genreDataApi} from '../../../../Services';
@@ -130,22 +129,22 @@ class ItemDetail extends Component {
     // }
     render() {
         //console.log('render:::');
-        const {id,title,poster_path,backdrop_path,vote_average,release_date,overview } = this.props;
+        const {title,poster_path,vote_average,release_date,overview } = this.props;
         //console.log(overview);
         //console.log(genre_ids);
         // this.listGenres(genre_ids);
 
-        function showCategory(category) {
-            let string = category;
-            //console.log(string.split(" |"));
-            let lenghtCategory = string.split("  ").length;   
-            var arr = [];
-            for(let i=0; i < lenghtCategory; i++){
-                arr.push(<a key={i} href="genre.html">{string.split("  ")[i]}</a>);
-           }
-           //console.log(arr[0]);
-           return arr;
-        }
+        // function showCategory(category) {
+        //     let string = category;
+        //     //console.log(string.split(" |"));
+        //     let lenghtCategory = string.split("  ").length;   
+        //     var arr = [];
+        //     for(let i=0; i < lenghtCategory; i++){
+        //         arr.push(<a key={i} href="genre.html">{string.split("  ")[i]}</a>);
+        //    }
+        //    //console.log(arr[0]);
+        //    return arr;
+        // }
         
         
         return (

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ItemRequestMovie from '../RequestedMovies/ItemRequestMovies/ItemRequestMovie';
+import ItemUpcomingMovie from '../UpcomingMovies/ItemUpcomingMovie/ItemUpcomingMovie';
 import {dataApi} from '../../Services';
 import {getConfiguration} from '../../Services'
 class RequestedMovies extends Component {
@@ -97,7 +97,7 @@ class RequestedMovies extends Component {
             //console.log(product);
             if (index <= 9) {
                 return (
-                    <ItemRequestMovie
+                    <ItemUpcomingMovie
                         key = {index}
                         original_title = {product.original_title}
                         poster_path =  {product.poster_path}

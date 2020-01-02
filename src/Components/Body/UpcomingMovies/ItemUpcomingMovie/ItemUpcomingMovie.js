@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import Ratting from '../../../Ratting/Ratting';
 
 
-class ItemRequestMovie extends Component {
+class ItemUpcomingMovie extends Component {
 
 
     render() {
-        var { original_title, poster_path, backdrop_path, vote_average, release_date, href } = this.props;
+        var { original_title, poster_path, backdrop_path, vote_average, release_date } = this.props;
         let backdrop_path_flag = false;
         if (backdrop_path === 'http://image.tmdb.org/t/p/w500null') {
             backdrop_path_flag = false;
@@ -39,4 +39,4 @@ class ItemRequestMovie extends Component {
     }
 }
 
-export default ItemRequestMovie;
+export default ItemUpcomingMovie;

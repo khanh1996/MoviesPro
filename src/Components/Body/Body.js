@@ -3,7 +3,7 @@ import Tab from './HorizontalTab/Tab/Tab';
 import TabContainer from './HorizontalTab/TapContainer/TabContainer';
 import LastMovies from './LastMovies/LastMovies';
 import TopMovies from './TopMovies/TopMovies';
-import RequestedMovies from './RequestedMovies/RequestedMovies';
+import UpcommingMovies from './UpcomingMovies/UpcomingMovies';
 
 class Body extends Component {
     
@@ -234,12 +234,12 @@ class Body extends Component {
                     {/*/Latest movies*/}
                     <h3 className="agile_w3_title"> Latest <span>Movies</span></h3>
                         
-                        {/* <LastMovies/> */}
+                        <LastMovies/>
 
                     {/*/requested-movies*/}
                     <h3 className="agile_w3_title">Upcoming <span>Movies</span> </h3>
                         
-                        {/* <RequestedMovies/> */}
+                        <UpcommingMovies/>
                         
                     {/*/top-movies*/}
                     <h3 className="agile_w3_title">Top<span>Movies</span> </h3>

@@ -4,7 +4,7 @@ import Ratting from '../../../../Ratting/Ratting';
 class Item extends Component {
     
     render() {
-        const {id,title,poster_path,backdrop_path,vote_average,release_date  } = this.props;
+        const {id,title,poster_path,vote_average,release_date  } = this.props;
         return (
             <div className="w3l-movie-gride-agile">
                 <a href={id} className="hvr-sweep-to-bottom"><img src={poster_path} title="Movies Pro" className="img-responsive" alt={title} />

@@ -7,7 +7,7 @@ class ItemLatestMovies extends Component {
         //console.log("ItemLatestMovies:::")
     }
     render() {
-        var { original_title, poster_path, backdrop_path, vote_average, release_date, href } = this.props;
+        var { original_title, poster_path, backdrop_path, vote_average, release_date } = this.props;
         //console.log(this.props);
         let backdrop_path_flag = false;
         if (backdrop_path === 'http://image.tmdb.org/t/p/w500null') {
