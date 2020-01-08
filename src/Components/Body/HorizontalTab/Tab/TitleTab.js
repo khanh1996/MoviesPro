@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Tab extends Component {
+class TitleTab extends Component {
     render() {
         return (
             <ul className="resp-tabs-list">
@@ -12,4 +12,4 @@ class Tab extends Component {
     }
 }
 
-export default Tab;
+export default TitleTab;

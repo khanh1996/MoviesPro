@@ -11,40 +11,12 @@ class RespTapContainer extends Component {
         }
     }
     
-    // tab = () =>{
-        
-    //     if (this.props.tab === 'recent') {
-    //         console.log('recent');
-    //     }
-    //     if (this.props.tab === 'popularity') {
-    //         console.log('popularity');
-    //     }
-    //     if (this.props.tab === 'top_rating') {
-    //         console.log('top_rating');
-    //     }
-
-    // }
-    __getListTopMovies = () => {
+    renderALLTap = (() => {
         console.log(this.props.tab);
-        const params = {
-            'param1'  : 'discover',
-            'param2'  : 'movie',
-            'language': 'en-US',
-            'sort_by' : 'vote_count.desc',
-            'include_adult' : true,
-            'include_video' : true
-        }
-        const dataTopMovies = dataApi(params);
-        //console.log(dataTopMovies);
-        return dataTopMovies;
-    }
-    __getConfigurationImage = () => {
-        //console.log('getConfigurationImage::');
-        const params = {
-            'param1' : 'configuration'
-        }
-        const getConfig = getConfiguration(params);
-        return getConfig;
+    });
+    componentDidUpdate(){
+        //console.log('componentDidUpdate::');
+        window.tabSlide();
     }
     componentDidMount(){
         this.__promisAll();
@@ -65,7 +37,27 @@ class RespTapContainer extends Component {
             return false;
         }
     }
-    
+    __getListTopMovies = () => {
+        const params = {
+            'param1'  : 'discover',
+            'param2'  : 'movie',
+            'language': 'en-US',
+            'sort_by' : 'vote_count.desc',
+            'include_adult' : true,
+            'include_video' : true
+        }
+        const dataTopMovies = dataApi(params);
+        //console.log(dataTopMovies);
+        return dataTopMovies;
+    }
+    __getConfigurationImage = () => {
+        //console.log('getConfigurationImage::');
+        const params = {
+            'param1' : 'configuration'
+        }
+        const getConfig = getConfiguration(params);
+        return getConfig;
+    }
     __promisAll = () => {
         const getListTopMovies = this.__getListTopMovies();
         const getConfigurationImage = this.__getConfigurationImage();
@@ -95,30 +87,7 @@ class RespTapContainer extends Component {
                 data : listTopMovies
             });
         });
-    } 
-    __itemDetailTopMovie = (()=>{
-        const itemDetailTopMovie = this.state.data.map((product,index) => {
-            //console.log(product);
-
-            if(index === 0 ){
-                return (
-                    <ItemDetail 
-                            key = {index}
-                            id = {product.id} 
-                            title = {product.title}
-                            overview = {product.overview}
-                            poster_path =  {product.poster_path}
-                            backdrop_path = {product.backdrop_path}
-                            vote_average =  {product.vote_average}
-                            release_date =  {product.release_date}
-                            genre_ids = {product.genre_ids}
-                        />
-                )
-            }
-        });
-        //console.log(itemDetailTopMovie);
-        return itemDetailTopMovie;
-    })
+    }
     __listItemTopMovie = (() =>{
         //console.log('listItemLastMovie::');
         // const base_url = "http://image.tmdb.org/t/p/";
@@ -145,22 +114,44 @@ class RespTapContainer extends Component {
         //console.log(elementItemTopMovies);
         return elementListItemTopMovies;
     });
+    __itemDetailTopMovie = (()=>{
+        const itemDetailTopMovie = this.state.data.map((product,index) => {
+            //console.log(product);
+
+            if(index === 0 ){
+                return (
+                    <ItemDetail 
+                            key = {index}
+                            id = {product.id} 
+                            title = {product.title}
+                            overview = {product.overview}
+                            poster_path =  {product.poster_path}
+                            backdrop_path = {product.backdrop_path}
+                            vote_average =  {product.vote_average}
+                            release_date =  {product.release_date}
+                            genre_ids = {product.genre_ids}
+                        />
+                )
+            }
+        });
+        //console.log(itemDetailTopMovie);
+        return itemDetailTopMovie;
+    });
     
     render() {
+        this.renderALLTap();
         return (
-            <div className="tab3">
-                <div className="tab_movies_agileinfo">
-                    <div className="w3_agile_featured_movies">
-                        <div className="col-md-5 video_agile_player">
-                            { this.__itemDetailTopMovie() }
-                        </div>
-                        <div className="col-md-7 wthree_agile-movies_list">
-                            { this.__listItemTopMovie() }
-                        </div>
-                        <div className="clearfix"> </div>
+            <div className="tab_movies_agileinfo">
+                <div className="w3_agile_featured_movies">
+                    <div className="col-md-5 video_agile_player">
+                        { this.__itemDetailTopMovie() }
                     </div>
-                    <div className="cleafix" />
-                </div>	
+                    <div className="col-md-7 wthree_agile-movies_list">
+                        {this.__listItemTopMovie()}
+                    </div>
+                    <div className="clearfix"> </div>
+                </div>
+                <div className="cleafix" />
             </div>
         );
     }

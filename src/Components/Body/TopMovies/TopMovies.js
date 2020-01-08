@@ -135,7 +135,7 @@ class TopMovies extends Component {
         });
         //console.log(itemDetailTopMovie);
         return itemDetailTopMovie;
-    })
+    });
     
 
 

@@ -15,17 +15,24 @@ class TabContainer extends Component {
     // elementTap = this.state.taps.map((tap,index) => {
     //     console.log(tap);
     // });
-    
+    componentDidUpdate(){
+        //console.log('componentDidUpdate::');
+        window.tabSlide();
+    }
+   
+
     render() {
        
         // display item home page
         return (
-            
-            <div className="resp-tabs-container">
+            <div>
+            <div className="tab1">
                 <RespTapContainer tab="recent"/>
-                <RespTapContainer tab="popularity"/>
-                <RespTapContainer tab="top_rating"/>
             </div>
+            <div className="tab2">
+            <RespTapContainer tab="recent"/>
+            </div>
+            </div>            
         );
     }
 }
