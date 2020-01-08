@@ -4,7 +4,7 @@ import ItemDetail from './ItemDetail/ItemDetail';
 
 import {dataApi} from '../../../Services';
 import {getConfiguration} from '../../../Services';
-import RespTapContainer from './RespTapContainer/RespTapContainer';
+import RespTapContainer from './RespTabContainer/RespTabContainer';
 class TabContainer extends Component {
     constructor(props, context) {
         super(props, context);
@@ -15,8 +15,7 @@ class TabContainer extends Component {
     // elementTap = this.state.taps.map((tap,index) => {
     //     console.log(tap);
     // });
-   
-
+    
     render() {
        
         // display item home page
