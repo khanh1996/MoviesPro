@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import Tab from './HorizontalTab/Tab/Tab';
+import TitleTab from './HorizontalTab/Tab/TitleTab';
 import TabContainer from './HorizontalTab/TapContainer/TabContainer';
 import LastMovies from './LastMovies/LastMovies';
 import TopMovies from './TopMovies/TopMovies';
 import UpcommingMovies from './UpcomingMovies/UpcomingMovies';
+import HorizontalTab from './HorizontalTab/HorizontalTab';
 
 class Body extends Component {
     
@@ -225,11 +226,7 @@ class Body extends Component {
                     {/*/agileinfo_tabs*/}
                     <div className="agileinfo_tabs">
                     {/*/tab-section*/}
-                        <div id="horizontalTab">
-                            {/* Show tap home page  */}
-                            <Tab/>
-                            <TabContainer/>
-                        </div>	
+                        <HorizontalTab/>
                     </div>
                     {/*/Latest movies*/}
                     <h3 className="agile_w3_title"> Latest <span>Movies</span></h3>
