@@ -29,7 +29,7 @@ class TagReviewMovies extends Component {
         var arrayData = [];
         combinePromise.then((values)=>{
             const getListGenreMovies = values[0].data;
-            console.log(getListGenreMovies);
+            //console.log(getListGenreMovies);
             let listTopMovies =  getListGenreMovies.genres.map( (genre,index) => {
                 arrayData.push(genre.name);
             });
@@ -37,7 +37,7 @@ class TagReviewMovies extends Component {
            return listTopMovies;
            
         });
-        console.log(arrayData);
+        //console.log(arrayData);
            
     }
     

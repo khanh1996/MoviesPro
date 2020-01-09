@@ -19,7 +19,7 @@ class ItemLatestMovies extends Component {
             <div className="item">
                 <div className="w3l-movie-gride-agile w3l-movie-gride-slider ">
                     <a href="single.html" className="hvr-sweep-to-bottom">
-                        { backdrop_path_flag ?  <img src={poster_path} title={original_title} className="img-responsive" alt={original_title} /> : <img style={{height: "492px"}} src="https://netflixroulette.files.wordpress.com/2013/01/image-not-found.gif" title="Image result for image not found" className="img-responsive" alt="Image result for image not found" />  }
+                        { backdrop_path_flag ?  <img src={poster_path} title={original_title} className="img-responsive" alt={original_title} /> : <img style={{height: "350px"}} src="https://netflixroulette.files.wordpress.com/2013/01/image-not-found.gif" title="Image result for image not found" className="img-responsive" alt="Image result for image not found" />  }
                         <div className="w3l-action-icon"><i className="fa fa-play-circle-o" aria-hidden="true" /></div>
                     </a>
                     <div className="mid-1 agileits_w3layouts_mid_1_home">

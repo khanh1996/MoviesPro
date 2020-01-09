@@ -130,7 +130,6 @@ class LastMovies extends Component {
                 <div id="owl-demo" className="owl-carousel owl-theme">
                     {/* start Item Latest Movies */}
                     {this.__listItemLastMovie()}
-                    
                     {/* end Item Latest Movies */}
                 </div>
                 
