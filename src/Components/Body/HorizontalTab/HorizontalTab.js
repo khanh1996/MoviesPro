@@ -8,9 +8,7 @@ class HorizontalTab extends Component {
             <div id="horizontalTab">
                 {/* Show tap home page  */}
                 <TitleTab/>
-                <div className="resp-tabs-container">
-                    <TabContainer/>
-                </div>
+                <TabContainer/>
                 
             </div>
         );

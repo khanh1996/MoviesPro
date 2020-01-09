@@ -1,38 +1,16 @@
 import React, { Component } from 'react';
-import Item from './Item/Item'
-import ItemDetail from './ItemDetail/ItemDetail';
+import TabItemRecent from './TabItemRecent';
+import TabItemPopularity from './TabItemPopularity';
+import TabItemTopRating from './TabItemTopRating';
 
-import {dataApi} from '../../../Services';
-import {getConfiguration} from '../../../Services';
-import RespTapContainer from './RespTabContainer/RespTabContainer';
 class TabContainer extends Component {
-    constructor(props, context) {
-        super(props, context);
-        this.state = {
-            taps : ['recent','popularity','topRating']
-        };
-    }
-    // elementTap = this.state.taps.map((tap,index) => {
-    //     console.log(tap);
-    // });
-    componentDidUpdate(){
-        //console.log('componentDidUpdate::');
-        window.tabSlide();
-    }
-   
-
     render() {
-       
-        // display item home page
         return (
-            <div>
-            <div className="tab1">
-                <RespTapContainer tab="recent"/>
+            <div className="resp-tabs-container">
+                <TabItemRecent/>
+                <TabItemPopularity/>
+                <TabItemTopRating/>
             </div>
-            <div className="tab2">
-            <RespTapContainer tab="recent"/>
-            </div>
-            </div>            
         );
     }
 }

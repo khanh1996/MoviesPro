@@ -1,22 +1,15 @@
 import React, { Component } from 'react';
-import {dataApi} from '../../../../Services';
-import {getConfiguration} from '../../../../Services'
-import ItemDetail from '../ItemDetail/ItemDetail';
-import Item from '../Item/Item';
-class RespTapContainer extends Component {
+import { dataApi, getConfiguration } from '../../../Services';
+import Item from './Item/Item';
+import ItemDetail from './ItemDetail/ItemDetail';
+
+
+class TabItemRecent extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
           data : []
         }
-    }
-    
-    renderALLTap = (() => {
-        console.log(this.props.tab);
-    });
-    componentDidUpdate(){
-        //console.log('componentDidUpdate::');
-        window.tabSlide();
     }
     componentDidMount(){
         this.__promisAll();
@@ -37,7 +30,7 @@ class RespTapContainer extends Component {
             return false;
         }
     }
-    __getListTopMovies = () => {
+    __getListRecentMovies = () => {
         const params = {
             'param1'  : 'discover',
             'param2'  : 'movie',
@@ -46,9 +39,9 @@ class RespTapContainer extends Component {
             'include_adult' : true,
             'include_video' : true
         }
-        const dataTopMovies = dataApi(params);
-        //console.log(dataTopMovies);
-        return dataTopMovies;
+        const dataRecentMovies = dataApi(params);
+        //console.log(dataRecentMovies);
+        return dataRecentMovies;
     }
     __getConfigurationImage = () => {
         //console.log('getConfigurationImage::');
@@ -59,17 +52,17 @@ class RespTapContainer extends Component {
         return getConfig;
     }
     __promisAll = () => {
-        const getListTopMovies = this.__getListTopMovies();
+        const getListRecentMovies = this.__getListRecentMovies();
         const getConfigurationImage = this.__getConfigurationImage();
-        const combinePromise = Promise.all([getListTopMovies,getConfigurationImage]);
+        const combinePromise = Promise.all([getListRecentMovies,getConfigurationImage]);
         combinePromise.then((values)=>{
-            const getListTopMovies = values[0].data;
+            const getListRecentMovies = values[0].data;
             const getConfigurationImage = values[1].data;
             const base_url = getConfigurationImage.images.base_url;
             const poster_sizes = getConfigurationImage.images.poster_sizes[4];
             let pathImagePoster = '';
             let pathImageBackdrop = '';
-            let listTopMovies =  getListTopMovies.results.map( (product,index) => {
+            let listRecentMovies =  getListRecentMovies.results.map( (product,index) => {
                 pathImagePoster = base_url + poster_sizes + product.poster_path;
                 pathImageBackdrop = base_url + poster_sizes + product.backdrop_path;
                 return {
@@ -79,21 +72,22 @@ class RespTapContainer extends Component {
                     poster_path: `${pathImagePoster}`,
                     backdrop_path:`${pathImageBackdrop}`,
                     release_date: `${product.release_date}`,
-                    vote_average: `${product.vote_average}`
+                    vote_average: `${product.vote_average}`,
+                    genre_ids: `${product.genre_ids}`
                 }
             });
             
             this.setState({
-                data : listTopMovies
+                data : listRecentMovies
             });
         });
     }
-    __listItemTopMovie = (() =>{
+    __listItemRecentMovie = (() =>{
         //console.log('listItemLastMovie::');
         // const base_url = "http://image.tmdb.org/t/p/";
         // const backdrop_sizes = "w300";
         // const configPath = base_url + backdrop_sizes;
-        const elementListItemTopMovies = this.state.data.map((product,index) => {
+        const elementListItemRecentMovies = this.state.data.map((product,index) => {
             //console.log(product);
 
             if(index !== 0 && index < this.state.data.slice(0,9).length ){
@@ -111,11 +105,11 @@ class RespTapContainer extends Component {
                 )
             }
         });
-        //console.log(elementItemTopMovies);
-        return elementListItemTopMovies;
+        //console.log(elementListItemRecentMovies);
+        return elementListItemRecentMovies;
     });
-    __itemDetailTopMovie = (()=>{
-        const itemDetailTopMovie = this.state.data.map((product,index) => {
+    __itemDetailRecentMovie = (()=>{
+        const itemDetailRecentMovie = this.state.data.map((product,index) => {
             //console.log(product);
 
             if(index === 0 ){
@@ -134,27 +128,27 @@ class RespTapContainer extends Component {
                 )
             }
         });
-        //console.log(itemDetailTopMovie);
-        return itemDetailTopMovie;
+        //console.log(itemDetailRecentMovie);
+        return itemDetailRecentMovie;
     });
-    
     render() {
-        this.renderALLTap();
         return (
-            <div className="tab_movies_agileinfo">
-                <div className="w3_agile_featured_movies">
+            <div className="tab1">
+                <div className="tab_movies_agileinfo">
+                    <div className="w3_agile_featured_movies">
                     <div className="col-md-5 video_agile_player">
-                        { this.__itemDetailTopMovie() }
+                       { this.__itemDetailRecentMovie()}
                     </div>
                     <div className="col-md-7 wthree_agile-movies_list">
-                        {this.__listItemTopMovie()}
+                        { this.__listItemRecentMovie() }
                     </div>
                     <div className="clearfix"> </div>
-                </div>
-                <div className="cleafix" />
+                    </div>
+                    <div className="cleafix" />
+                </div>	
             </div>
         );
     }
 }
 
-export default RespTapContainer;
+export default TabItemRecent;
