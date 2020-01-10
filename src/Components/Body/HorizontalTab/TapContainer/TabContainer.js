@@ -5,20 +5,37 @@ import TabItemTopRating from './TabItemTopRating';
 import TabItem from './TabItem';
 
 class TabContainer extends Component {
-    constructor(props, context) {
-        super(props, context);
-        this.state = {
-            tabs : []
-        }
+    __arrTab = () => {
+        var arrTab = [
+            {
+                key  : 1,
+                name : 'now_playing'
+            },
+            {
+                key  : 2,
+                name : 'popular'
+            },
+            {
+                key  : 3,
+                name : 'top_rated'
+            }
+        ]
+        return arrTab;
     }
     
     __renderTab = () => {
-        const {tab} = this.state;
-        const array = [];
-        const itemDetailRecentMovie = this.state.tabs.map((product,index) => {
-            console.log(product);
-        });
-        console.log(itemDetailRecentMovie);
+      const getArrTab = this.__arrTab();
+      const arrItemTab = [];
+      if(Array.isArray(getArrTab)){
+        for (let i = 0; i < getArrTab.length; i++) {
+            const name = getArrTab[i].name;
+            const key = "tab"+getArrTab[i].key;
+            //console.log(key);
+            arrItemTab.push(<TabItem className={key} name={name}/>);
+        }
+      }
+      //console.log(arrItemTab);
+      return arrItemTab;
     }
     render() {
         return (
@@ -26,9 +43,7 @@ class TabContainer extends Component {
                 {/* <TabItemRecent/>
                 <TabItemPopularity/>
                 <TabItemTopRating/> */}
-                <TabItem className="tap1"/>
-                <TabItem className="tap2"/>
-                <TabItem className="tap3"/>
+                { this.__renderTab() }
             </div>
         );
     }
