@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import ItemLatestMovies from './ItemLatestMovies/ItemLatestMovies';
-
 import {getConfiguration} from '../../Services'
 import {dataApi} from '../../Services';
+import Item from '../Item/Item';
 class LastMovies extends Component {
     constructor(props, context) {
         super(props, context);
@@ -109,14 +108,17 @@ class LastMovies extends Component {
         const elementItemLatestMovies = this.state.data.map((product,index) => {
             //console.log(product);
             return (
-                <ItemLatestMovies
-                    key = {index}
-                    original_title = {product.original_title}
-                    poster_path =  {product.poster_path}
-                    backdrop_path = {product.backdrop_path}
-                    vote_average =  {product.vote_average}
-                    release_date =  {product.release_date}
-                />
+                <div className="item" key = {index}>
+                    <div className="w3l-movie-gride-agile w3l-movie-gride-slider">
+                        <Item
+                            original_title = {product.original_title}
+                            poster_path =  {product.poster_path}
+                            backdrop_path = {product.backdrop_path}
+                            vote_average =  {product.vote_average}
+                            release_date =  {product.release_date}
+                        />
+                    </div>
+                </div>
             )
         });
         //console.log(elementItemLatestMovies);

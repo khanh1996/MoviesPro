@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Item from '../HorizontalTab/TapContainer/Item/Item';
-import ItemDetail from '../HorizontalTab/TapContainer/ItemDetail/ItemDetail';
+import Item from '../Item/Item';
+import ItemDetail from '../ItemDetail/ItemDetail';
 import {dataApi} from '../../Services';
 import {getConfiguration} from '../../Services'
 

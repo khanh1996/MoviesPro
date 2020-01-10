@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { dataApi, getConfiguration } from '../../../Services';
-import Item from './Item/Item';
-import ItemDetail from './ItemDetail/ItemDetail';
+import Item from '../../Item/Item';
+import ItemDetail from '../../ItemDetail/ItemDetail';
 
 
 class TabItemRecent extends Component {
@@ -92,16 +92,17 @@ class TabItemRecent extends Component {
 
             if(index !== 0 && index < this.state.data.slice(0,9).length ){
                 return (
-                    <Item 
-                        key = {index}
-                        id = {product.id} 
-                        title = {product.title}
-                        poster_path =  {product.poster_path}
-                        backdrop_path = {product.backdrop_path}
-                        vote_average =  {product.vote_average}
-                        release_date =  {product.release_date}
-                        // href = {product.href}
-                    />
+                    <div className="w3l-movie-gride-agile" key = {index}>
+                        <Item 
+                            id = {product.id} 
+                            original_title = {product.original_title}
+                            poster_path =  {product.poster_path}
+                            backdrop_path = {product.backdrop_path}
+                            vote_average =  {product.vote_average}
+                            release_date =  {product.release_date}
+                            // href = {product.href}
+                        />
+                    </div>
                 )
             }
         });
@@ -117,7 +118,7 @@ class TabItemRecent extends Component {
                     <ItemDetail 
                             key = {index}
                             id = {product.id} 
-                            title = {product.title}
+                            original_title = {product.original_title}
                             overview = {product.overview}
                             poster_path =  {product.poster_path}
                             backdrop_path = {product.backdrop_path}

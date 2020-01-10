@@ -8,7 +8,6 @@ class TagReviewMovies extends Component {
 
         }
     }
-    
     componentDidMount(){
         this.__promisAll();
     }

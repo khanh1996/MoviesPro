@@ -2,7 +2,11 @@
     max-height: 608px;
 }
 .fix-text-3-line{
-    height: 53px;
+    display: -webkit-box;
     -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;  
     overflow: hidden;
+}
+ul.w3l-ratings li{
+    padding-right: 5px;
 }

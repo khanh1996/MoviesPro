@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './ItemDetail.css';
-import Ratting from '../../../../Ratting/Ratting';
-import {genreDataApi} from '../../../../Services';
+import Ratting from '../../Ratting/Ratting';
+import {genreDataApi} from '../../Services';
 class ItemDetail extends Component {
     constructor(props, context) {
         super(props, context);
@@ -9,7 +9,6 @@ class ItemDetail extends Component {
             genres : []
         }
     }
-    
     componentDidMount(){
         // data truyền sang
         const genre_ids = this.props.genre_ids;
@@ -47,7 +46,7 @@ class ItemDetail extends Component {
           
         }).catch(error => console.log(error));
     }
-    __listGenres = () =>{
+    __listGenres = () => {
         const elementListGenre = this.state.genres.map( (genre,index) => {
             const lastItem = this.state.genres[this.state.genres.length-1];
             return (
@@ -73,43 +72,25 @@ class ItemDetail extends Component {
             return false;
         }
     }
-    renderGenres = () => {
+    __getfomatDate = (release_date) => {
+        var monthNames = [
+            "Jan", "Feb", "Mar",
+            "Apr", "May", "Jun", "Jul",
+            "Aug", "Sep", "Oct",
+            "Nov", "Dec"
+          ];
+          
         
-
-            // for (const elementGenre of genresApi) {
-            //     for (const element of dataGenres) {
-            //        if (elementGenre === element.id){
-            //             genres.push(element.name);
-            //        }
-            //     }
-            // }
-        // const elementGenres =  this.state.genres.map((genre,index) => {
-        //     // lấy ra phần tử cuối cùng
-        //     const lastItem = this.state.genres[this.state.genres.length-1];
-            
-        //     return (
-        //         <a key={index} href="genre.html">{genre}{ lastItem === genre ? '' : ' | '}</a>
-        //     )
-        // });
+          var day = release_date.getDate();
+          var monthIndex = release_date.getMonth();
+          var year = release_date.getFullYear();
+          //console.log(monthNames[monthIndex]+ ' ' + day + ',' + year);
+        return monthNames[monthIndex]+ ' ' + day + ', ' + year;
     }
-    
-    // renderGenres = () => {
-    //     console.log('genre_id:::::::::::');
-    //     console.log(this.props.genre_ids);
-    //     const elementGenres =  this.state.genres.map((genre,index)=>{
-    //         // lấy ra phần tử cuối cùng
-    //         const lastItem = this.state.genres[this.state.genres.length-1];
-            
-    //         return (
-    //             <a key={index} href="genre.html">{genre}{ lastItem === genre ? '' : ' | '}</a>
-    //         )
-    //     });
-    //     return elementGenres;
-    // }
     render() {
         const {title,poster_path,vote_average,release_date,overview } = this.props;
         return (
-            <div>
+            <React.Fragment>
                 <div className="video-grid-single-page-agileits">
                     <div data-video="f2Z65fobH2I" id="video"> 
                         <img src={poster_path} alt={title} className="img-responsive" /> 
@@ -117,11 +98,11 @@ class ItemDetail extends Component {
                 </div>
                 <div className="player-text">
                     <div className="fexi_header">{title}</div>
-                    <div className="fexi_header_para fix-text-3-line">
+                    <div className="fexi_header_para ">
                         <span className="conjuring_w3">Story Line<label>:</label></span>
-                        {overview}
+                        <p className="fix-text-3-line">{overview}</p>
                     </div>
-					<div className="fexi_header_para"><span>Release On<label>:</label></span>{release_date} </div>
+                    <div className="fexi_header_para"><span>Release On<label>:</label></span>{this.__getfomatDate(new Date(release_date))}</div>
                     <div className="fexi_header_para">
                         <span>Genres<label>:</label></span>
                         { this.__listGenres()}
@@ -129,10 +110,9 @@ class ItemDetail extends Component {
                     
                     <div className="fexi_header_para fexi_header_para1"><span>Star Rating<label>:</label></span>
                         <Ratting vote_average={vote_average} />
-                        
                     </div>
                 </div>
-            </div>
+            </React.Fragment>
         );
     }
 }

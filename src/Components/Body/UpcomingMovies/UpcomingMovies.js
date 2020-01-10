@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import ItemUpcomingMovie from '../UpcomingMovies/ItemUpcomingMovie/ItemUpcomingMovie';
 import {dataApi} from '../../Services';
 import {getConfiguration} from '../../Services'
+import Item from '../Item/Item';
 class RequestedMovies extends Component {
     constructor(props, context) {
         super(props, context);
@@ -97,14 +97,15 @@ class RequestedMovies extends Component {
             //console.log(product);
             if (index <= 9) {
                 return (
-                    <ItemUpcomingMovie
-                        key = {index}
-                        original_title = {product.original_title}
-                        poster_path =  {product.poster_path}
-                        backdrop_path = {product.backdrop_path}
-                        vote_average =  {product.vote_average}
-                        release_date =  {product.release_date}
-                    />
+                    <div className="col-md-2 w3l-movie-gride-agile requested-movies" key = {index}>
+                        <Item
+                            original_title = {product.original_title}
+                            poster_path =  {product.poster_path}
+                            backdrop_path = {product.backdrop_path}
+                            vote_average =  {product.vote_average}
+                            release_date =  {product.release_date}
+                        />
+                    </div>
                 )
             }
         });

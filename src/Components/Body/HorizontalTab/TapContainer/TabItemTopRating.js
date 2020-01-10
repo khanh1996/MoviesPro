@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import ItemDetail from './ItemDetail/ItemDetail';
-import Item from './Item/Item';
+import ItemDetail from '../../ItemDetail/ItemDetail';
+import Item from '../../Item/Item';
 import { getConfiguration, dataApi } from '../../../Services';
 
 class TabItemTopRating extends Component {
@@ -88,16 +88,17 @@ class TabItemTopRating extends Component {
 
             if(index !== 0 && index < this.state.data.slice(0,9).length ){
                 return (
-                    <Item 
-                        key = {index}
-                        id = {product.id} 
-                        title = {product.title}
-                        poster_path =  {product.poster_path}
-                        backdrop_path = {product.backdrop_path}
-                        vote_average =  {product.vote_average}
-                        release_date =  {product.release_date}
-                        // href = {product.href}
-                    />
+                    <div className="w3l-movie-gride-agile" key = {index}>
+                        <Item 
+                            id = {product.id} 
+                            title = {product.title}
+                            poster_path =  {product.poster_path}
+                            backdrop_path = {product.backdrop_path}
+                            vote_average =  {product.vote_average}
+                            release_date =  {product.release_date}
+                            // href = {product.href}
+                        />
+                    </div>
                 )
             }
         });
