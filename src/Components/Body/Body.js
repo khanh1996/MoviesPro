@@ -241,7 +241,7 @@ class Body extends Component {
                     {/*/top-movies*/}
                     <h3 className="agile_w3_title">Top<span>Movies</span> </h3>
 
-                        {/* <TopMovies/> */}
+                        <TopMovies/>
                 </div>
             </div>
             // content-inner-section

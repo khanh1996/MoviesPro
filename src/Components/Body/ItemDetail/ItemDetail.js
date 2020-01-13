@@ -10,8 +10,6 @@ class ItemDetail extends Component {
         }
     }
     componentDidMount(){
-        // data truyền sang
-        const genre_ids = this.props.genre_ids;
         //console.log(genre_ids);
         const params = {
             'param1'  : 'genre',
@@ -29,6 +27,8 @@ class ItemDetail extends Component {
             //genre_ids : thể loại của một movie
             //dataGenreAll : tất cả các thể loại movie
             var arrayGenres = [];
+            // data truyền sang
+            const genre_ids = this.props.genre_ids; 
             const genreOfMovie = genre_ids.split(',');
             for (const elementgenre of genreOfMovie){
                 const  element = parseInt(elementgenre);
@@ -88,16 +88,16 @@ class ItemDetail extends Component {
         return monthNames[monthIndex]+ ' ' + day + ', ' + year;
     }
     render() {
-        const {title,poster_path,vote_average,release_date,overview } = this.props;
+        const {original_title,poster_path,vote_average,release_date,overview,profile_sizes,still_sizes,backdrop_path } = this.props;
         return (
             <React.Fragment>
                 <div className="video-grid-single-page-agileits">
                     <div data-video="f2Z65fobH2I" id="video"> 
-                        <img src={poster_path} alt={title} className="img-responsive" /> 
+                        <img src={poster_path} alt={original_title} className="img-responsive" /> 
                     </div>
                 </div>
                 <div className="player-text">
-                    <div className="fexi_header">{title}</div>
+                    <div className="fexi_header">{original_title}</div>
                     <div className="fexi_header_para ">
                         <span className="conjuring_w3">Story Line<label>:</label></span>
                         <p className="fix-text-3-line">{overview}</p>

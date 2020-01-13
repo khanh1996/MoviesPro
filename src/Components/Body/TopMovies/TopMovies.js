@@ -51,20 +51,30 @@ class TopMovies extends Component {
             const getListTopMovies = values[0].data;
             const getConfigurationImage = values[1].data;
             const base_url = getConfigurationImage.images.base_url;
-            const poster_sizes = getConfigurationImage.images.poster_sizes[4];
+            const poster_sizes = getConfigurationImage.images.poster_sizes[3];
+            const backdrop_sizes = getConfigurationImage.images.backdrop_sizes[3];
+            const profile_sizes = getConfigurationImage.images.profile_sizes[1];
+            const still_sizes = getConfigurationImage.images.still_sizes[1];
             let pathImagePoster = '';
             let pathImageBackdrop = '';
+            let pathImageProfile = '';
+            let pathImageStill = '';
             let listTopMovies =  getListTopMovies.results.map( (product,index) => {
                 pathImagePoster = base_url + poster_sizes + product.poster_path;
-                pathImageBackdrop = base_url + poster_sizes + product.backdrop_path;
+                pathImageBackdrop = base_url + backdrop_sizes + product.backdrop_path;
+                pathImageProfile = base_url + profile_sizes + product.poster_path;
+                pathImageStill = base_url + still_sizes + product.poster_path;
                 return {
                     id : `${product.id}`,
                     original_title: `${product.original_title}`,
                     overview: `${product.overview}`,
                     poster_path: `${pathImagePoster}`,
                     backdrop_path:`${pathImageBackdrop}`,
+                    profile_sizes:`${pathImageProfile}`,
+                    still_sizes:`${pathImageStill}`,
                     release_date: `${product.release_date}`,
-                    vote_average: `${product.vote_average}`
+                    vote_average: `${product.vote_average}`,
+                    genre_ids : `${product.genre_ids}`
                 }
             });
             
@@ -88,25 +98,30 @@ class TopMovies extends Component {
         }
     }
     __listItemTopMovie = (() =>{
-        //console.log('listItemLastMovie::');
-        // const base_url = "http://image.tmdb.org/t/p/";
-        // const backdrop_sizes = "w300";
-        // const configPath = base_url + backdrop_sizes;
+        const arrMovie = [];
+        for (let index = 0; index < this.state.data.length; index++) {
+           arrMovie.push(this.state.data[index]);
+        }
+        
         const elementListItemTopMovies = this.state.data.map((product,index) => {
             //console.log(product);
-
+            const random = this.__randomItem(arrMovie);
+            const elementMovie = arrMovie.splice(random,1);
+            //console.log(elementMovie);
             if(index !== 0 && index < this.state.data.slice(0,9).length ){
                 return (
+                    <div className="w3l-movie-gride-agile" key = {index}>
                     <Item 
                         key = {index}
-                        id = {product.id} 
-                        title = {product.title}
-                        poster_path =  {product.poster_path}
-                        backdrop_path = {product.backdrop_path}
-                        vote_average =  {product.vote_average}
-                        release_date =  {product.release_date}
+                        id = {elementMovie[0].id} 
+                        original_title = {elementMovie[0].original_title}
+                        poster_path =  {elementMovie[0].poster_path}
+                        backdrop_path = {elementMovie[0].backdrop_path}
+                        vote_average =  {elementMovie[0].vote_average}
+                        release_date =  {elementMovie[0].release_date}
                         // href = {product.href}
                     />
+                    </div>
                 )
             }
         });
@@ -114,21 +129,27 @@ class TopMovies extends Component {
         return elementListItemTopMovies;
     });
     __itemDetailTopMovie = (()=>{
+        const arrMovie = [];
+        for (let index = 0; index < this.state.data.length; index++) {
+           arrMovie.push(this.state.data[index]);
+        }
         const itemDetailTopMovie = this.state.data.map((product,index) => {
-            //console.log(product);
-
+            const random = this.__randomItem(arrMovie);
+            const elementMovie = arrMovie.splice(random,1);
             if(index === 0 ){
                 return (
                     <ItemDetail 
                             key = {index}
-                            id = {product.id} 
-                            title = {product.title}
-                            overview = {product.overview}
-                            poster_path =  {product.poster_path}
-                            backdrop_path = {product.backdrop_path}
-                            vote_average =  {product.vote_average}
-                            release_date =  {product.release_date}
-                            genre_ids = {product.genre_ids}
+                            id = {elementMovie[0].id} 
+                            original_title = {elementMovie[0].original_title}
+                            overview = {elementMovie[0].overview}
+                            poster_path =  {elementMovie[0].poster_path}
+                            backdrop_path = {elementMovie[0].backdrop_path}
+                            profile_sizes = {elementMovie[0].profile_sizes}
+                            still_sizes = {elementMovie[0].still_sizes}
+                            vote_average =  {elementMovie[0].vote_average}
+                            release_date =  {elementMovie[0].release_date}
+                            genre_ids = {elementMovie[0].genre_ids}
                         />
                 )
             }
@@ -136,9 +157,10 @@ class TopMovies extends Component {
         //console.log(itemDetailTopMovie);
         return itemDetailTopMovie;
     });
-    
-
-
+    __randomItem = (items) => {
+        // truyền vào 1 mảng và trả vè 1 phần tử random trong đó
+        return  Math.floor(Math.random() * items.length);
+    }
     render() {
         
         return (

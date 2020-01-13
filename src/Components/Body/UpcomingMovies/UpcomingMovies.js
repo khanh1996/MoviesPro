@@ -7,6 +7,7 @@ class RequestedMovies extends Component {
         super(props, context);
         this.state = {
             data : [],
+            name : "upcoming",
             configuration: {
                 images: {
                     "base_url": "",
@@ -72,10 +73,8 @@ class RequestedMovies extends Component {
         });
     }
     shouldComponentUpdate(nextProps, nextState){
-        
         //console.log('shouldComponentUpdate::');
         //console.log(this.state.data);
-        
         const oldData = this.state.data;
         const newData = nextState;
         if(oldData !== newData){
@@ -87,33 +86,66 @@ class RequestedMovies extends Component {
             return false;
         }
     }
-
     __listItemUpcomingMovie = ( () =>{
-        //console.log('listItemLastMovie::');
-        // const base_url = "http://image.tmdb.org/t/p/";
-        // const backdrop_sizes = "w300";
-        // const configPath = base_url + backdrop_sizes;
-        const elementItemUpcomingMovies = this.state.data.map((product,index) => {
-            //console.log(product);
-            if (index <= 9) {
-                return (
-                    <div className="col-md-2 w3l-movie-gride-agile requested-movies" key = {index}>
-                        <Item
-                            original_title = {product.original_title}
-                            poster_path =  {product.poster_path}
-                            backdrop_path = {product.backdrop_path}
-                            vote_average =  {product.vote_average}
-                            release_date =  {product.release_date}
-                        />
-                    </div>
-                )
+        const arrMovie = [];
+        for (let index = 0; index < this.state.data.length; index++) {
+            arrMovie.push(this.state.data[index]);
+        }
+        //console.log(arrMovie);
+        const elementItemUpcomingMovies = this.state.data.map((product,index) => 
+            {
+                var random = this.__randomItem(arrMovie);
+                //console.log(random);
+                // tìm vị trí phần tử random rồi xóa nó đi.
+                //console.log(arrMovie);
+                var elementMovie = arrMovie.splice(random, 1);
+                //console.log(elementID);
+                if(index <= 9){
+                    return (
+                        <div className="col-md-2 w3l-movie-gride-agile requested-movies" key = {index}>
+                            <Item
+                                id = {elementMovie[0].id}
+                                name = {this.state.name}
+                                original_title = {elementMovie[0].original_title}
+                                poster_path =  {elementMovie[0].poster_path}
+                                backdrop_path = {elementMovie[0].backdrop_path}
+                                vote_average =  {elementMovie[0].vote_average}
+                                release_date =  {elementMovie[0].release_date}
+                            />
+                        </div>
+                    )
+                }
             }
-        });
-        //console.log(elementItemLatestMovies);
+        )
+        //console.log(elementItemUpcomingMovies);
+        // const elementItemUpcomingMovies = this.state.data.map((product,index) => {
+        //     //console.log(product);
+        //     if (index <= 9) {
+        //         return (
+        //             <div className="col-md-2 w3l-movie-gride-agile requested-movies" key = {index}>
+        //                 <Item
+        //                     name = {this.state.name}
+        //                     original_title = {product.original_title}
+        //                     poster_path =  {product.poster_path}
+        //                     backdrop_path = {product.backdrop_path}
+        //                     vote_average =  {product.vote_average}
+        //                     release_date =  {product.release_date}
+        //                 />
+        //             </div>
+        //         )
+        //     }
+        // });
+        // console.log(elementItemLatestMovies);
+        //console.log(elementItemUpcomingMovies);
+        //console.log(item);
         return elementItemUpcomingMovies;
     });
+    __randomItem = (items) => {
+        // truyền vào 1 mảng và trả vè 1 phần tử random trong đó
+        return  Math.floor(Math.random() * items.length);
+    }
     render() {
-        
+        //this.__getRandomMovie();
         return (
             <div className="wthree_agile-requested-movies">
                 {/* START ITEM REQUEST MOVIES*/ }

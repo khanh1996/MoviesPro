@@ -31,7 +31,7 @@ class TabContainer extends Component {
             const name = getArrTab[i].name;
             const key = "tab"+getArrTab[i].key;
             //console.log(key);
-            arrItemTab.push(<TabItem className={key} name={name}/>);
+            arrItemTab.push(<TabItem key={i} className={key} name={name}/>);
         }
       }
       //console.log(arrItemTab);

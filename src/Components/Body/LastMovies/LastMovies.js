@@ -7,6 +7,7 @@ class LastMovies extends Component {
         super(props, context);
         this.state = {
             data : [],
+            name : 'latest-movies',
             configuration: {
                 images: {
                     "base_url": "",
@@ -54,22 +55,32 @@ class LastMovies extends Component {
             const getListLastMovies = values[0].data;
             const getConfigurationImage = values[1].data;
             const base_url = getConfigurationImage.images.base_url;
-            const poster_sizes = getConfigurationImage.images.poster_sizes[4];
+            const poster_sizes = getConfigurationImage.images.poster_sizes[2];
+            const backdrop_sizes = getConfigurationImage.images.backdrop_sizes[0];
+            const profile_sizes = getConfigurationImage.images.profile_sizes[1];
+            const still_sizes = getConfigurationImage.images.still_sizes[1];
             let pathImagePoster = '';
             let pathImageBackdrop = '';
+            let pathImageProfile = '';
+            let pathImageStill = '';
             //console.log(getListLastMovies);
             let listLastMovies = getListLastMovies.results.map((product,index) =>{
                 pathImagePoster = base_url + poster_sizes + product.poster_path;
-                pathImageBackdrop = base_url + poster_sizes + product.backdrop_path;
-                //console.log(pathImage);
+                pathImageBackdrop = base_url + backdrop_sizes + product.poster_path;
+                pathImageProfile = base_url + profile_sizes + product.poster_path;
+                pathImageStill = base_url + still_sizes + product.poster_path;
+                //console.log(pathImageStill);
                 return {
                     id: `${product.id}`,
                     original_title: `${product.original_title}`,
                     overview: `${product.overview}`,
                     poster_path: `${pathImagePoster}`,
                     backdrop_path:`${pathImageBackdrop}`,
+                    profile_sizes: `${pathImageProfile}`,
+                    still_sizes: `${pathImageStill}`,
                     release_date: `${product.release_date}`,
-                    vote_average: `${product.vote_average}`
+                    vote_average: `${product.vote_average}`,
+                    poster_sizes: `${poster_sizes}`
                 };
             });
             //console.log(listLastMovies);
@@ -111,11 +122,15 @@ class LastMovies extends Component {
                 <div className="item" key = {index}>
                     <div className="w3l-movie-gride-agile w3l-movie-gride-slider">
                         <Item
+                            name = {this.state.name}
                             original_title = {product.original_title}
                             poster_path =  {product.poster_path}
                             backdrop_path = {product.backdrop_path}
                             vote_average =  {product.vote_average}
                             release_date =  {product.release_date}
+                            poster_sizes = {product.poster_sizes}
+                            profile_sizes = {product.profile_sizes}
+                            still_sizes = {product.still_sizes}
                         />
                     </div>
                 </div>

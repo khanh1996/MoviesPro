@@ -29,15 +29,15 @@ class TabItem extends Component {
             return false;
         }
     }
-    __getListRecentMovies = () => {
+    __getListTabMovies = () => {
         const params = {
             'param1'  : 'movie',
             'param2'  : this.props.name,
             'language': 'en-US'
         }
-        const dataRecentMovies = dataApi(params);
+        const dataTabMovies = dataApi(params);
         //console.log(dataRecentMovies);
-        return dataRecentMovies;
+        return dataTabMovies;
     }
     __getConfigurationImage = () => {
         //console.log('getConfigurationImage::');
@@ -48,17 +48,17 @@ class TabItem extends Component {
         return getConfig;
     }
     __promisAll = () => {
-        const getListRecentMovies = this.__getListRecentMovies();
+        const getListTabMovies = this.__getListTabMovies();
         const getConfigurationImage = this.__getConfigurationImage();
-        const combinePromise = Promise.all([getListRecentMovies,getConfigurationImage]);
+        const combinePromise = Promise.all([getListTabMovies,getConfigurationImage]);
         combinePromise.then((values)=>{
-            const getListRecentMovies = values[0].data;
+            const getListTabMovies = values[0].data;
             const getConfigurationImage = values[1].data;
             const base_url = getConfigurationImage.images.base_url;
             const poster_sizes = getConfigurationImage.images.poster_sizes[4];
             let pathImagePoster = '';
             let pathImageBackdrop = '';
-            let listRecentMovies =  getListRecentMovies.results.map( (product,index) => {
+            let listTabMovies =  getListTabMovies.results.map( (product,index) => {
                 pathImagePoster = base_url + poster_sizes + product.poster_path;
                 pathImageBackdrop = base_url + poster_sizes + product.backdrop_path;
                 return {
@@ -74,16 +74,16 @@ class TabItem extends Component {
             });
             
             this.setState({
-                data : listRecentMovies
+                data : listTabMovies
             });
         });
     }
-    __listItemRecentMovie = (() =>{
+    __listItemTabMovie = (() =>{
         //console.log('listItemLastMovie::');
         // const base_url = "http://image.tmdb.org/t/p/";
         // const backdrop_sizes = "w300";
         // const configPath = base_url + backdrop_sizes;
-        const elementListItemRecentMovies = this.state.data.map((product,index) => {
+        const elementListItemTabMovies = this.state.data.map((product,index) => {
             //console.log(product);
 
             if(index !== 0 && index < this.state.data.slice(0,9).length ){
@@ -102,11 +102,11 @@ class TabItem extends Component {
                 )
             }
         });
-        //console.log(elementListItemRecentMovies);
-        return elementListItemRecentMovies;
+        //console.log(elementListItemTabMovies);
+        return elementListItemTabMovies;
     });
-    __itemDetailRecentMovie = (()=>{
-        const itemDetailRecentMovie = this.state.data.map((product,index) => {
+    __itemDetailTabMovie = (()=>{
+        const itemDetailTabMovie = this.state.data.map((product,index) => {
             //console.log(product);
 
             if(index === 0 ){
@@ -126,7 +126,7 @@ class TabItem extends Component {
             }
         });
         //console.log(itemDetailRecentMovie);
-        return itemDetailRecentMovie;
+        return itemDetailTabMovie;
     });
     render() {
         return (
@@ -135,10 +135,10 @@ class TabItem extends Component {
                 <div className="tab_movies_agileinfo">
                     <div className="w3_agile_featured_movies">
                     <div className="col-md-5 video_agile_player">
-                        { this.__itemDetailRecentMovie()}
+                        { this.__itemDetailTabMovie()}
                     </div>
                     <div className="col-md-7 wthree_agile-movies_list">
-                        { this.__listItemRecentMovie() }
+                        { this.__listItemTabMovie() }
                     </div>
                     <div className="clearfix"> </div>
                     </div>
