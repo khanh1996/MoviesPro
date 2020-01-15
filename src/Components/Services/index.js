@@ -22,7 +22,7 @@ export const dataApi = (params) => {
     const pathLanguage = '&language='+ language !== '&language=undefined' ? '&language='+ language : '' ;
     //console.log(movie);
     const URL = 'https://api.themoviedb.org/3/'+ param1 + '/'+ param2 + '/' + param3 +'?'+ api_key + pathLanguage + pathSort_by + pathInclude_adult + pathInclude_video + pathPage + pathYear;
-    //console.log(URL);
+    console.log(URL);
     const path = axios.get(URL);
     //console.log(path);
     return path;

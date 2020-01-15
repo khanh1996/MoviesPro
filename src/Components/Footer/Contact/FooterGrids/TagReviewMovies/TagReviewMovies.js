@@ -5,13 +5,13 @@ class TagReviewMovies extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-
+            genres : []
         }
     }
     componentDidMount(){
         this.__promisAll();
     }
-    __listgenreMovie = () => {
+    __getListgenreMovie = () => {
             const params = {
                 'param1'  : 'genre',
                 'param2'  : 'movie',
@@ -23,21 +23,34 @@ class TagReviewMovies extends Component {
             return dataGenreMovies;
     }
     __promisAll = () => {
-        const getListGenreMovies = this.__listgenreMovie();
+        const getListGenreMovies = this.__getListgenreMovie();
         const combinePromise = Promise.all([getListGenreMovies]);
         var arrayData = [];
         combinePromise.then((values)=>{
+            // console.log(values);
             const getListGenreMovies = values[0].data;
+            //console.log(getListGenreMovies.genres);
             //console.log(getListGenreMovies);
-            let listTopMovies =  getListGenreMovies.genres.map( (genre,index) => {
-                arrayData.push(genre.name);
+            let listGenres =  getListGenreMovies.genres.map( (genre,index) => {
+                return {
+                    id: `${genre.id}`,
+                    name: `${genre.name}`,
+                }
             });
-           // console.log(listTopMovies);
-           return listTopMovies;
-           
+            this.setState({
+                genres : listGenres
+            });
         });
         //console.log(arrayData);
-           
+    }
+    __listgenreMovie  = () => {
+
+        let listGenres =  this.state.genres.map( (genre,index) => {
+            return (
+                 <li key={index}><a href="comedy.html" id={genre.id}>{genre.name}</a></li>
+            )
+        });
+        return listGenres
     }
     
     render() {
@@ -46,21 +59,7 @@ class TagReviewMovies extends Component {
             <div className="col-md-2 footer-grid">
                 <h4>Review Movies</h4>
                 <ul className="w3-tag2">
-                <li><a href="comedy.html">Comedy</a></li>
-                <li><a href="horror.html">Horror</a></li>
-                <li><a href="series.html">Historical</a></li>
-                <li><a href="series.html">Romantic</a></li>
-                <li><a href="series.html">Love</a></li>
-                <li><a href="genre.html">Action</a></li>
-                <li><a href="single.html">Reviews</a></li>
-                <li><a href="comedy.html">Comedy</a></li>
-                <li><a href="horror.html">Horror</a></li>
-                <li><a href="series.html">Historical</a></li>
-                <li><a href="series.html">Romantic</a></li>
-                <li><a href="genre.html">Love</a></li>
-                <li><a href="comedy.html">Comedy</a></li>
-                <li><a href="horror.html">Horror</a></li>
-                <li><a href="genre.html">Historical</a></li>
+                {this.__listgenreMovie()}
                 </ul>
             </div>
         );
